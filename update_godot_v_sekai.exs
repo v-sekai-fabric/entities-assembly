@@ -170,10 +170,7 @@ try do
   assemble_cmd = [
     "run",
     "-e",
-    ~s|case Assembler.Run.assemble("#{godot_path}", "#{assembler_config}") do\n| <>
-      ~s|  :ok -> :ok\n| <>
-      ~s|  {:error, why} -> IO.puts(:stderr, why); System.halt(1)\n| <>
-      ~s|end|
+    ~s|case Assembler.Run.assemble("#{godot_path}", "#{assembler_config}") do :ok -> :ok; {:error, why} -> IO.puts(:stderr, why); System.halt(1) end|
   ]
 
   case System.cmd("mix", assemble_cmd, cd: script_dir, stderr_to_stdout: true) do
